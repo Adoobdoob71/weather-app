@@ -1,10 +1,8 @@
-import "./App.css";
 import { Box, ChakraProvider } from "@chakra-ui/react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { theme } from "./utils/theme";
 import { Intro } from "./fragments/Intro";
 import { Header } from "./components/Header";
-import { SCREEN_HEIGHT, SCREEN_WIDTH } from "./utils/constants";
 
 function App() {
   return (

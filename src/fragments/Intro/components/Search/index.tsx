@@ -1,4 +1,12 @@
-import { Box, Flex, IconButton, Input, Select, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  IconButton,
+  Input,
+  InputGroup,
+  Select,
+  Text,
+} from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 import { FC } from "react";
 import { Icon } from "src/components/Icon";
@@ -7,7 +15,7 @@ import { useIndex } from "./useIndex";
 interface Props {}
 
 const Search: FC<Props> = () => {
-  const { state, dispatch, getUserLocation } = useIndex();
+  const { searchState, searchDispatch, getUserLocation } = useIndex();
 
   return (
     <>
@@ -32,23 +40,56 @@ const Search: FC<Props> = () => {
           colorScheme="blue"
           fontSize="sm"
           size="sm"
+          me={3}
         />
-        <Input
-          size={["md", "lg", "lg"]}
-          placeholder="Enter a city name..."
-          variant="filled"
-          colorScheme="blue"
-          value={state.cityName}
-          onChange={(event) => dispatch({ cityName: event.target.value })}
-          w={["50%", "50%", "50%", "50%"]}
-          marginInline={3}
-        />
+        {searchState.inputType === "city" ? (
+          <Input
+            size={["md", "lg", "lg"]}
+            placeholder="Enter a city name..."
+            variant="filled"
+            colorScheme="blue"
+            value={searchState.cityName}
+            onChange={(event) =>
+              searchDispatch({ cityName: event.target.value })
+            }
+            w="50%"
+          />
+        ) : (
+          <Flex
+            w={["55%", "70%", "50%"]}
+            flexDir={["column", "column", "row"]}
+            rowGap={[2, 4, 0]}
+            columnGap={[0, 0, 3]}
+          >
+            <Input
+              size={["md", "lg", "lg"]}
+              placeholder="Latitude"
+              variant="filled"
+              colorScheme="blue"
+              value={searchState.coords?.latitude}
+              onChange={(event) =>
+                searchDispatch({ cityName: event.target.value })
+              }
+            />
+            <Input
+              size={["md", "lg", "lg"]}
+              placeholder="Longitude"
+              variant="filled"
+              colorScheme="blue"
+              value={searchState.coords?.longitude}
+              onChange={(event) =>
+                searchDispatch({ cityName: event.target.value })
+              }
+            />
+          </Flex>
+        )}
         <IconButton
           icon={<SearchIcon />}
           aria-label="Search place"
           colorScheme="yellow"
           fontSize={["sm", "md"]}
           size={["sm", "md"]}
+          ms={3}
         />
       </Box>
       <Flex alignItems="center" mt={16}>
@@ -56,7 +97,9 @@ const Search: FC<Props> = () => {
         <Select
           placeholder="Search by..."
           w="fit-content"
-          onChange={(event) => dispatch({ inputType: event.target.value })}
+          onChange={(event) =>
+            searchDispatch({ inputType: event.target.value })
+          }
           size={["sm", "sm", "sm"]}
           defaultValue="city"
           colorScheme="yellow"

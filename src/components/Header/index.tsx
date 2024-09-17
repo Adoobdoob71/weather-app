@@ -1,6 +1,5 @@
 import { Flex, Switch, useColorMode } from "@chakra-ui/react";
 import { FC } from "react";
-import { SCREEN_WIDTH } from "src/utils/constants";
 import { SunIcon, MoonIcon } from "@chakra-ui/icons";
 
 interface Props {}

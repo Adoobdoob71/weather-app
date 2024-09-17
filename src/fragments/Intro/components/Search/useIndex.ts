@@ -1,20 +1,15 @@
 import { useToast } from "@chakra-ui/react";
 import { useReducer } from "react";
 
+interface search {
+  cityName?: string;
+  coords?: { latitude: number; longitude: number };
+  inputType?: string;
+}
+
 const useIndex = () => {
-  const [state, dispatch] = useReducer(
-    (
-      prev: {
-        cityName?: string;
-        coords?: { latitude: number; longitude: number };
-        inputType?: string;
-      },
-      next: {
-        cityName?: string;
-        coords?: { latitude: number; longitude: number };
-        inputType?: string;
-      }
-    ) => {
+  const [searchState, searchDispatch] = useReducer(
+    (prev: search, next: search) => {
       return { ...prev, ...next };
     },
     { cityName: "", coords: { latitude: 0, longitude: 0 }, inputType: "city" }
@@ -25,7 +20,7 @@ const useIndex = () => {
   const getUserLocation = async () => {
     navigator.geolocation.getCurrentPosition(
       (coords) => {
-        dispatch({
+        searchDispatch({
           coords: {
             latitude: coords.coords.latitude,
             longitude: coords.coords.longitude,
@@ -43,11 +38,7 @@ const useIndex = () => {
     );
   };
 
-  return {
-    state,
-    dispatch,
-    getUserLocation,
-  };
+  return { searchState, searchDispatch, getUserLocation };
 };
 
 export { useIndex };
