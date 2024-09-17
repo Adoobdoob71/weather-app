@@ -11,7 +11,7 @@ const Header: FC<Props> = () => {
   return (
     <Flex
       w="100%"
-      paddingBlock="1.5em"
+      paddingBlock="2em"
       paddingInline="2rem"
       justifyContent="flex-end"
       alignItems="center"

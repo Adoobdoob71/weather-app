@@ -1,0 +1,72 @@
+import { Box, Flex, IconButton, Input, Select, Text } from "@chakra-ui/react";
+import { SearchIcon } from "@chakra-ui/icons";
+import { FC } from "react";
+import { Icon } from "src/components/Icon";
+import { useIndex } from "./useIndex";
+
+interface Props {}
+
+const Search: FC<Props> = () => {
+  const { state, dispatch, getUserLocation } = useIndex();
+
+  return (
+    <>
+      <Box
+        display="flex"
+        justifyContent="center"
+        alignItems="center"
+        w="100%"
+        mt={12}
+      >
+        <IconButton
+          icon={
+            <Icon
+              d="M256 0c17.7 0 32 14.3 32 32l0 34.7C368.4 80.1 431.9 143.6 445.3 224l34.7 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-34.7 0C431.9 368.4 368.4 431.9 288 445.3l0 34.7c0 17.7-14.3 
+                32-32 32s-32-14.3-32-32l0-34.7C143.6 431.9 80.1 368.4 66.7 288L32 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l34.7 0C80.1 143.6 143.6 80.1 224 66.7L224 32c0-17.7 14.3-32 32-32zM128 256a128 
+                128 0 1 0 256 0 128 128 0 1 0 -256 0zm128-80a80 80 0 1 1 0 160 80 80 0 1 1 0-160z"
+            />
+          }
+          isRound
+          onClick={getUserLocation}
+          aria-label="Search my location"
+          colorScheme="blue"
+          fontSize="sm"
+          size="sm"
+        />
+        <Input
+          size={["md", "lg", "lg"]}
+          placeholder="Enter a city name..."
+          variant="filled"
+          colorScheme="blue"
+          value={state.cityName}
+          onChange={(event) => dispatch({ cityName: event.target.value })}
+          w={["50%", "50%", "50%", "50%"]}
+          marginInline={3}
+        />
+        <IconButton
+          icon={<SearchIcon />}
+          aria-label="Search place"
+          colorScheme="yellow"
+          fontSize={["sm", "md"]}
+          size={["sm", "md"]}
+        />
+      </Box>
+      <Flex alignItems="center" mt={16}>
+        <Text me={6}>Search By</Text>
+        <Select
+          placeholder="Search by..."
+          w="fit-content"
+          onChange={(event) => dispatch({ inputType: event.target.value })}
+          size={["sm", "sm", "sm"]}
+          defaultValue="city"
+          colorScheme="yellow"
+        >
+          <option value="city">City</option>
+          <option value="coordinates">Coords</option>
+        </Select>
+      </Flex>
+    </>
+  );
+};
+
+export { Search };

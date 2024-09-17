@@ -8,7 +8,10 @@ import { SCREEN_HEIGHT, SCREEN_WIDTH } from "./utils/constants";
 
 function App() {
   return (
-    <ChakraProvider theme={theme}>
+    <ChakraProvider
+      theme={theme}
+      toastOptions={{ defaultOptions: { position: "bottom-left" } }}
+    >
       <Box w="100%" h={window.innerHeight} bg="Background">
         <BrowserRouter>
           <Header />
