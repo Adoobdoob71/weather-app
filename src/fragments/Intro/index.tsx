@@ -1,7 +1,7 @@
 import { Center, Text } from "@chakra-ui/react";
 import { FC } from "react";
 import { Search } from "./components/Search";
-import { Description } from "./components/Description";
+import { BigCitiesForecast } from "./components/BigCitiesForecast";
 
 const Intro: FC = () => {
   return (
@@ -16,7 +16,7 @@ const Intro: FC = () => {
         Weather App
       </Text>
       <Search />
-      <Description />
+      <BigCitiesForecast />
     </Center>
   );
 };

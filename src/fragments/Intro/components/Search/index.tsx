@@ -1,12 +1,4 @@
-import {
-  Box,
-  Flex,
-  IconButton,
-  Input,
-  InputGroup,
-  Select,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Flex, IconButton, Input, Select, Text } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 import { FC } from "react";
 import { Icon } from "src/components/Icon";
@@ -26,22 +18,24 @@ const Search: FC<Props> = () => {
         w="100%"
         mt={12}
       >
-        <IconButton
-          icon={
-            <Icon
-              d="M256 0c17.7 0 32 14.3 32 32l0 34.7C368.4 80.1 431.9 143.6 445.3 224l34.7 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-34.7 0C431.9 368.4 368.4 431.9 288 445.3l0 34.7c0 17.7-14.3 
+        {searchState.inputType === "coordinates" && (
+          <IconButton
+            icon={
+              <Icon
+                d="M256 0c17.7 0 32 14.3 32 32l0 34.7C368.4 80.1 431.9 143.6 445.3 224l34.7 0c17.7 0 32 14.3 32 32s-14.3 32-32 32l-34.7 0C431.9 368.4 368.4 431.9 288 445.3l0 34.7c0 17.7-14.3 
                 32-32 32s-32-14.3-32-32l0-34.7C143.6 431.9 80.1 368.4 66.7 288L32 288c-17.7 0-32-14.3-32-32s14.3-32 32-32l34.7 0C80.1 143.6 143.6 80.1 224 66.7L224 32c0-17.7 14.3-32 32-32zM128 256a128 
                 128 0 1 0 256 0 128 128 0 1 0 -256 0zm128-80a80 80 0 1 1 0 160 80 80 0 1 1 0-160z"
-            />
-          }
-          isRound
-          onClick={getUserLocation}
-          aria-label="Search my location"
-          colorScheme="blue"
-          fontSize="sm"
-          size="sm"
-          me={3}
-        />
+              />
+            }
+            isRound
+            onClick={getUserLocation}
+            aria-label="Search my location"
+            colorScheme="blue"
+            fontSize="sm"
+            size="sm"
+            me={3}
+          />
+        )}
         {searchState.inputType === "city" ? (
           <Input
             size={["md", "lg", "lg"]}
@@ -52,11 +46,11 @@ const Search: FC<Props> = () => {
             onChange={(event) =>
               searchDispatch({ cityName: event.target.value })
             }
-            w="50%"
+            w={["70%", "50%"]}
           />
         ) : (
           <Flex
-            w={["55%", "70%", "50%"]}
+            w={["60%", "50%"]}
             flexDir={["column", "column", "row"]}
             rowGap={[2, 4, 0]}
             columnGap={[0, 0, 3]}
@@ -66,9 +60,16 @@ const Search: FC<Props> = () => {
               placeholder="Latitude"
               variant="filled"
               colorScheme="blue"
+              type="number"
               value={searchState.coords?.latitude}
               onChange={(event) =>
-                searchDispatch({ cityName: event.target.value })
+                searchDispatch({
+                  coords: {
+                    latitude:
+                      parseFloat(event.target.value) ||
+                      searchState.coords?.latitude,
+                  },
+                })
               }
             />
             <Input
@@ -76,9 +77,16 @@ const Search: FC<Props> = () => {
               placeholder="Longitude"
               variant="filled"
               colorScheme="blue"
+              type="number"
               value={searchState.coords?.longitude}
               onChange={(event) =>
-                searchDispatch({ cityName: event.target.value })
+                searchDispatch({
+                  coords: {
+                    longitude:
+                      parseFloat(event.target.value) ||
+                      searchState.coords?.longitude,
+                  },
+                })
               }
             />
           </Flex>
@@ -95,12 +103,11 @@ const Search: FC<Props> = () => {
       <Flex alignItems="center" mt={16}>
         <Text me={6}>Search By</Text>
         <Select
-          placeholder="Search by..."
           w="fit-content"
           onChange={(event) =>
             searchDispatch({ inputType: event.target.value })
           }
-          size={["sm", "sm", "sm"]}
+          size={["sm", "md", "md"]}
           defaultValue="city"
           colorScheme="yellow"
         >

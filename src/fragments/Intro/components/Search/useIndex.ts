@@ -3,7 +3,7 @@ import { useReducer } from "react";
 
 interface search {
   cityName?: string;
-  coords?: { latitude: number; longitude: number };
+  coords?: { latitude?: number; longitude?: number };
   inputType?: string;
 }
 
@@ -12,7 +12,11 @@ const useIndex = () => {
     (prev: search, next: search) => {
       return { ...prev, ...next };
     },
-    { cityName: "", coords: { latitude: 0, longitude: 0 }, inputType: "city" }
+    {
+      cityName: "",
+      coords: { latitude: undefined, longitude: undefined },
+      inputType: "city",
+    }
   );
 
   const toast = useToast();
