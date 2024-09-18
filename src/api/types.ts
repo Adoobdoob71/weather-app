@@ -1,5 +1,5 @@
 interface WeatherResponse {
-  data: Data[];
+  data: ForecastWeatherData[];
   city_name: string;
   lon: string;
   timezone: string;
@@ -8,7 +8,7 @@ interface WeatherResponse {
   state_code: string;
 }
 
-interface Data {
+interface ForecastWeatherData {
   valid_date: Date;
   ts: number;
   datetime: Date;
@@ -48,10 +48,62 @@ interface Data {
   sunset_ts: number;
 }
 
+interface CurrentWeatherResponse {
+  data: CurrentWeatherData[];
+  minutely: any[];
+  count: number;
+}
+
+interface CurrentWeatherData {
+  wind_cdir: string;
+  rh: number;
+  pod: string;
+  lon: number;
+  pres: number;
+  timezone: string;
+  ob_time: string;
+  country_code: string;
+  clouds: number;
+  vis: number;
+  wind_spd: number;
+  gust: number;
+  wind_cdir_full: string;
+  app_temp: number;
+  state_code: string;
+  ts: number;
+  h_angle: number;
+  dewpt: number;
+  weather: Weather;
+  uv: number;
+  aqi: number;
+  station: string;
+  sources: string[];
+  wind_dir: number;
+  elev_angle: number;
+  datetime: string;
+  precip: number;
+  ghi: number;
+  dni: number;
+  dhi: number;
+  solar_rad: number;
+  city_name: string;
+  sunrise: string;
+  sunset: string;
+  temp: number;
+  lat: number;
+  slp: number;
+}
+
 interface Weather {
   icon: string;
   code: string;
   description: string;
 }
 
-export type { WeatherResponse, Data, Weather };
+export type {
+  WeatherResponse,
+  ForecastWeatherData,
+  Weather,
+  CurrentWeatherData,
+  CurrentWeatherResponse,
+};

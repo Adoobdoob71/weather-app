@@ -1,10 +1,12 @@
-import { Flex, Switch, useColorMode } from "@chakra-ui/react";
-import { FC } from "react";
+import { Flex, HStack, Switch, useColorMode } from "@chakra-ui/react";
+import { FC, ReactNode } from "react";
 import { SunIcon, MoonIcon } from "@chakra-ui/icons";
 
-interface Props {}
+interface Props {
+  left?: ReactNode;
+}
 
-const Header: FC<Props> = () => {
+const Header: FC<Props> = ({ left }) => {
   const { toggleColorMode, colorMode } = useColorMode();
 
   return (
@@ -12,16 +14,19 @@ const Header: FC<Props> = () => {
       w="100%"
       paddingBlock="2em"
       paddingInline="2rem"
-      justifyContent="flex-end"
+      justifyContent="space-between"
       alignItems="center"
     >
-      {colorMode === "dark" ? <MoonIcon /> : <SunIcon />}
-      <Switch
-        colorScheme="yellow"
-        isChecked={colorMode === "dark"}
-        onChange={toggleColorMode}
-        ms="1em"
-      />
+      {left}
+      <HStack ms="auto">
+        {colorMode === "dark" ? <MoonIcon /> : <SunIcon />}
+        <Switch
+          colorScheme="yellow"
+          isChecked={colorMode === "dark"}
+          onChange={toggleColorMode}
+          ms="1em"
+        />
+      </HStack>
     </Flex>
   );
 };

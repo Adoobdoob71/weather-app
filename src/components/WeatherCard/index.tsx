@@ -1,22 +1,39 @@
-import { Box, Flex, Image, Text } from "@chakra-ui/react";
-import { FC } from "react";
-import { Data, WeatherResponse } from "src/api/types";
+import { Box, Card, CardProps, Flex, Image, Text } from "@chakra-ui/react";
+import { FC, memo } from "react";
 import { WEATHER_ICON_URL } from "src/utils/constants";
 
-interface Props {
+interface Props extends CardProps {
   city_name?: string;
-  data: Data;
-  // index: number;
+  temp?: number;
+  icon?: string;
+  description?: string;
+  country_code?: string;
 }
 
-const WeatherCard: FC<Props> = ({ city_name, data }) => {
-  console.log(data);
+const WeatherCard: FC<Props> = memo((props) => {
   return (
-    <Flex flexDir="column" alignItems="center">
-      <Image src={`${WEATHER_ICON_URL}${data.weather.icon}.png`} />
-      <Text>{city_name}</Text>
-    </Flex>
+    <Card
+      flexDir="column"
+      alignItems="center"
+      paddingInline={4}
+      paddingBlock={2}
+      w={[32, 32, 32, 40]}
+      {...props}
+    >
+      <Image src={`${WEATHER_ICON_URL}${props.icon}.png`} boxSize={12} />
+      <Text fontSize="md" fontWeight="bold">
+        {props.temp}
+      </Text>
+      <Text
+        fontSize={["xs", "xs", "sm", "sm"]}
+        color="GrayText"
+        fontWeight="bold"
+        noOfLines={1}
+      >
+        {props.city_name}
+      </Text>
+    </Card>
   );
-};
+});
 
 export { WeatherCard };

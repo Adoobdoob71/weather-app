@@ -5,6 +5,7 @@ import { Intro } from "./fragments/Intro";
 import { Header } from "./components/Header";
 import { Provider } from "react-redux";
 import { store } from "./redux/weatherForecast/store";
+import { WeatherForecast } from "./fragments/WeatherForecast";
 
 function App() {
   return (
@@ -15,9 +16,9 @@ function App() {
       <Provider store={store}>
         <Box w="100%" h={window.innerHeight}>
           <BrowserRouter>
-            <Header />
             <Routes>
               <Route path="/" Component={Intro} />
+              <Route path="/forecast" Component={WeatherForecast} />
             </Routes>
           </BrowserRouter>
         </Box>

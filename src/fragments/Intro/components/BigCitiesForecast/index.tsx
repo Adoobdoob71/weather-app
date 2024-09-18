@@ -1,35 +1,37 @@
-import { Container } from "@chakra-ui/react";
-import { FC, useEffect } from "react";
-import { loadWeatherForecast } from "src/api/functions";
+import { Box } from "@chakra-ui/react";
+import { FC, useEffect, useState } from "react";
+import { loadBigCitiesWeather } from "src/api/functions";
+import { CurrentWeatherResponse } from "src/api/types";
 import { WeatherCard } from "src/components/WeatherCard";
-import { loadingTrue, updateForecast } from "src/redux/weatherForecast/slice";
-import {
-  useAppDispatch,
-  useAppSelector,
-} from "src/redux/weatherForecast/types";
 
-interface Props {}
+const BigCitiesForecast: FC = () => {
+  const [data, setData] = useState<(CurrentWeatherResponse | null)[]>([]);
 
-const BigCitiesForecast: FC<Props> = () => {
-  const dispatch = useAppDispatch();
-  const state = useAppSelector((state) => state.weatherForecast);
   useEffect(() => {
-    dispatch(loadingTrue());
-    loadWeatherForecast("Tel Aviv").then((result) => {
-      dispatch(updateForecast(result));
-    });
+    loadBigCitiesWeather().then((result) => setData(result));
   }, []);
+
   return (
-    <Container mt={6} alignItems="center">
-      {state.sevenDayForecast &&
-        state.sevenDayForecast.data.map((item, index) => (
-          <WeatherCard
-            city_name={state.sevenDayForecast?.city_name}
-            data={item}
-            key={index}
-          />
-        ))}
-    </Container>
+    <Box
+      display={["grid", "grid", "flex"]}
+      mt={8}
+      gridTemplateColumns="repeat(2, 30%)"
+      columnGap={[0, 0, 8]}
+      justifyContent={["space-evenly", "space-evenly", "center"]}
+      w="100%"
+    >
+      {data.slice(0, 7).map((item, index) => (
+        <WeatherCard
+          city_name={item?.data[0].city_name}
+          icon={item?.data[0].weather.icon}
+          country_code={item?.data[0].country_code}
+          description={item?.data[0].weather.description}
+          temp={item?.data[0].temp}
+          key={index}
+          mb={[8, 8, 0]}
+        />
+      ))}
+    </Box>
   );
 };
 

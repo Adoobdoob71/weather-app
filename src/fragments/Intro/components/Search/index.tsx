@@ -1,13 +1,23 @@
-import { Box, Flex, IconButton, Input, Select, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  IconButton,
+  Input,
+  Popover,
+  PopoverAnchor,
+  PopoverContent,
+  PopoverTrigger,
+  Select,
+  Text,
+} from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 import { FC } from "react";
 import { Icon } from "src/components/Icon";
 import { useIndex } from "./useIndex";
 
-interface Props {}
-
-const Search: FC<Props> = () => {
-  const { searchState, searchDispatch, getUserLocation } = useIndex();
+const Search: FC = () => {
+  const { searchState, searchDispatch, getUserLocation, getLocationForecast } =
+    useIndex();
 
   return (
     <>
@@ -46,7 +56,7 @@ const Search: FC<Props> = () => {
             onChange={(event) =>
               searchDispatch({ cityName: event.target.value })
             }
-            w={["70%", "50%"]}
+            w={["70%", "62.5%", "50%"]}
           />
         ) : (
           <Flex
@@ -94,13 +104,14 @@ const Search: FC<Props> = () => {
         <IconButton
           icon={<SearchIcon />}
           aria-label="Search place"
+          onClick={getLocationForecast}
           colorScheme="yellow"
           fontSize={["sm", "md"]}
           size={["sm", "md"]}
           ms={3}
         />
       </Box>
-      <Flex alignItems="center" mt={16}>
+      <Flex alignItems="center" mt={[8, 8, 16]}>
         <Text me={6}>Search By</Text>
         <Select
           w="fit-content"
