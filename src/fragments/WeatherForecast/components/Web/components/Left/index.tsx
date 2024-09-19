@@ -20,20 +20,23 @@ const Left: FC = () => {
 
   return (
     <Box
-      flex={2}
+      w="fit-content"
+      position="absolute"
+      h="100vh"
       bg={colorMode === "dark" ? "gray.700" : "white"}
       display="flex"
       flexDir="column"
       alignItems="center"
       paddingBlock={8}
+      paddingInline={12}
     >
       <Image
         src={`${WEATHER_ICON_URL}${todayData?.weather.icon}.png`}
-        boxSize={[120, 120, 150, 200]}
+        boxSize={[200]}
       />
       <HStack mt={8}>
-        <Text fontSize={["4xl", "4xl", "5xl", "6xl"]}>{todayData?.temp}</Text>
-        <Text fontSize={["2xl", "2xl", "2xl", "4xl"]}>℃</Text>
+        <Text fontSize="6xl">{todayData?.temp}</Text>
+        <Text fontSize="4xl">℃</Text>
       </HStack>
       <Text mt={4}>{todayData?.weather.description}</Text>
       <HStack mt={8}>

@@ -12,8 +12,8 @@ const Header: FC<Props> = ({ left }) => {
   return (
     <Flex
       w="100%"
-      paddingBlock="2em"
-      paddingInline="2rem"
+      paddingBlock={8}
+      paddingInline={8}
       justifyContent="space-between"
       alignItems="center"
     >

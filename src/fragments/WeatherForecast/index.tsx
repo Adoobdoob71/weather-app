@@ -1,4 +1,3 @@
-import { Box } from "@chakra-ui/react";
 import { FC, useEffect, useState } from "react";
 import { WeatherForecastMobile } from "./components/Mobile";
 import { WeatherForecastWeb } from "./components/Web";

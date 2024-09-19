@@ -9,6 +9,7 @@ interface search {
   cityName?: string;
   coords?: { latitude?: number; longitude?: number };
   inputType?: string;
+  loading?: boolean;
 }
 
 const useIndex = () => {
@@ -20,6 +21,7 @@ const useIndex = () => {
       cityName: "",
       coords: { latitude: 0, longitude: 0 },
       inputType: "city",
+      loading: false,
     }
   );
 
@@ -49,29 +51,37 @@ const useIndex = () => {
   };
 
   const getLocationForecast = async () => {
-    if (searchState.inputType === "city") {
-      const result = await loadWeatherForecast(searchState.cityName);
-      if (!result)
-        return toast({
-          status: "error",
-          title: "Uh oh!",
-          description: "Input must be problematic :(",
-        });
-      dispatch(updateForecast(result));
-    } else {
-      const result = await loadWeatherForecast(undefined, {
-        latitude: searchState.coords?.latitude ?? 0,
-        longitude: searchState.coords?.longitude ?? 0,
+    try {
+      searchDispatch({ loading: true });
+      let result = null;
+      switch (searchState.inputType) {
+        case "city":
+          if (searchState.cityName === "") break;
+          result = await loadWeatherForecast(searchState.cityName);
+          break;
+        case "coordinates":
+          result = await loadWeatherForecast(undefined, {
+            latitude: searchState.coords?.latitude ?? 0,
+            longitude: searchState.coords?.longitude ?? 0,
+          });
+          break;
+      }
+
+      if (result) {
+        dispatch(updateForecast(result));
+        searchDispatch({ loading: false });
+        return navigate("/forecast");
+      }
+      searchDispatch({ loading: false });
+      throw "Couldn't find forecast";
+    } catch (error) {
+      console.error(error);
+      toast({
+        status: "error",
+        title: "Uh oh!",
+        description: JSON.stringify(error),
       });
-      if (!result)
-        return toast({
-          status: "error",
-          title: "Uh oh!",
-          description: "Input must be problematic :(",
-        });
-      dispatch(updateForecast(result));
     }
-    navigate("/forecast");
   };
 
   return { searchState, searchDispatch, getUserLocation, getLocationForecast };

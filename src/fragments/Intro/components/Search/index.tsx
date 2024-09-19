@@ -26,7 +26,7 @@ const Search: FC = () => {
         justifyContent="center"
         alignItems="center"
         w="100%"
-        mt={12}
+        mt={[6, 6, 6, 12]}
       >
         {searchState.inputType === "coordinates" && (
           <IconButton
@@ -78,6 +78,7 @@ const Search: FC = () => {
                     latitude:
                       parseFloat(event.target.value) ||
                       searchState.coords?.latitude,
+                    longitude: searchState.coords?.longitude,
                   },
                 })
               }
@@ -92,6 +93,7 @@ const Search: FC = () => {
               onChange={(event) =>
                 searchDispatch({
                   coords: {
+                    latitude: searchState.coords?.latitude,
                     longitude:
                       parseFloat(event.target.value) ||
                       searchState.coords?.longitude,
@@ -103,6 +105,7 @@ const Search: FC = () => {
         )}
         <IconButton
           icon={<SearchIcon />}
+          isLoading={searchState.loading}
           aria-label="Search place"
           onClick={getLocationForecast}
           colorScheme="yellow"
@@ -111,14 +114,14 @@ const Search: FC = () => {
           ms={3}
         />
       </Box>
-      <Flex alignItems="center" mt={[8, 8, 16]}>
+      <Flex alignItems="center" mt={8}>
         <Text me={6}>Search By</Text>
         <Select
           w="fit-content"
           onChange={(event) =>
             searchDispatch({ inputType: event.target.value })
           }
-          size={["sm", "md", "md"]}
+          size={["sm", "sm", "md"]}
           defaultValue="city"
           colorScheme="yellow"
         >

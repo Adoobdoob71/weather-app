@@ -29,7 +29,8 @@ const Right: FC = () => {
     <Box
       display="flex"
       flexDir="column"
-      flex={8}
+      style={{ width: "100vw - 290" }}
+      ms={285}
       bg={colorMode === "dark" ? undefined : "gray.100"}
     >
       <Header
@@ -50,7 +51,16 @@ const Right: FC = () => {
           <Tab>7 Days</Tab>
         </TabList>
       </Tabs>
-      <HStack overflow="hidden" ms={8} mt={8}>
+      <Box
+        display="flex"
+        alignSelf="stretch"
+        bg="red"
+        overflow="scroll"
+        style={{ width: "100vw - 285" }}
+        ps={8}
+        alignItems="center"
+        mt={8}
+      >
         {weatherForecast.sevenDayForecast?.data
           .slice(0, 7)
           .map((item, index) => (
@@ -58,10 +68,11 @@ const Right: FC = () => {
               icon={item.weather.icon}
               temp={item.temp}
               key={index}
+              me={2}
               city_name={item.weather.description}
             />
           ))}
-      </HStack>
+      </Box>
     </Box>
   );
 };

@@ -1,5 +1,6 @@
 import { CurrentWeatherResponse, WeatherResponse } from "src/api/types";
 import { WEATHER_API } from "src/utils/constants";
+import { fetchWithCache } from "src/utils/functions";
 
 const loadWeatherForecast = async (
   cityName?: string,
@@ -7,18 +8,22 @@ const loadWeatherForecast = async (
 ) => {
   try {
     if (cityName) {
-      const response = await fetch(
-        `${WEATHER_API}forecast/daily?city=${cityName}&key=${process.env.REACT_APP_API_KEY}`
+      const cityNameSlug = cityName.toLowerCase();
+      const data = await fetchWithCache(
+        `${WEATHER_API}forecast/daily?city=${cityNameSlug}&key=${process.env.REACT_APP_API_KEY}`,
+        "city",
+        cityNameSlug
       );
-      const data = await response.json();
-      return response.ok ? (data as WeatherResponse) : null;
+      return (data as WeatherResponse) ?? data;
     }
     if (coords) {
-      const response = await fetch(
-        `${WEATHER_API}forecast/daily?lat=${coords.latitude}&lon=${coords.longitude}&key=${process.env.REACT_APP_API_KEY}`
+      const data = await fetchWithCache(
+        `${WEATHER_API}forecast/daily?lat=${coords.latitude}&lon=${coords.longitude}&key=${process.env.REACT_APP_API_KEY}`,
+        "coordinates",
+        undefined,
+        coords
       );
-      const data = await response.json();
-      return response.ok ? (data as WeatherResponse) : data;
+      return (data as WeatherResponse) ?? data;
     }
   } catch (error) {
     console.error(error);
@@ -32,7 +37,8 @@ const loadBigCitiesWeather = async () => {
     const weathersData = await Promise.all(
       bigCities.map(async (cityName) => {
         const response = await fetch(
-          `${WEATHER_API}current?city=${cityName}&key=${process.env.REACT_APP_API_KEY}`
+          `${WEATHER_API}current?city=${cityName}&key=${process.env.REACT_APP_API_KEY}`,
+          { cache: "force-cache" }
         );
         const data = await response.json();
         return response.ok ? (data as CurrentWeatherResponse) : null;
