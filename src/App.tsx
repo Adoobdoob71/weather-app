@@ -1,13 +1,31 @@
-import { Box, ChakraProvider, useColorMode } from "@chakra-ui/react";
+import { Box, ChakraProvider, useToast } from "@chakra-ui/react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { theme } from "./utils/theme";
 import { Intro } from "./fragments/Intro";
-import { Header } from "./components/Header";
 import { Provider } from "react-redux";
 import { store } from "./redux/weatherForecast/store";
 import { WeatherForecast } from "./fragments/WeatherForecast";
+import { useEffect } from "react";
 
 function App() {
+  const toast = useToast();
+  useEffect(() => {
+    window.addEventListener("offline", () =>
+      toast({
+        status: "warning",
+        title: "I'm lagging!",
+        description: "Check your internet connection",
+      })
+    );
+    window.addEventListener("online", () =>
+      toast({
+        status: "success",
+        title: "And we're back!",
+        description: "Internet connection is back",
+      })
+    );
+  }, []);
+
   return (
     <ChakraProvider
       theme={theme}

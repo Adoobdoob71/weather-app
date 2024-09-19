@@ -6,9 +6,11 @@ interface Props extends IconProps {
 }
 
 const Icon: FC<Props> = memo((props) => {
+  const { d, ...otherProps } = props;
+
   return (
-    <ChakraIcon {...props} viewBox="0 0 500 500">
-      <path d={props.d} fill="currentColor" />
+    <ChakraIcon {...otherProps} viewBox="0 0 500 500">
+      <path d={d} fill="currentColor" />
     </ChakraIcon>
   );
 });

@@ -2,6 +2,7 @@ import { useToast } from "@chakra-ui/react";
 import { useReducer } from "react";
 import { useNavigate } from "react-router-dom";
 import { loadWeatherForecast } from "src/api/functions";
+import { WeatherResponse } from "src/api/types";
 import { updateForecast } from "src/redux/weatherForecast/slice";
 import { useAppDispatch } from "src/redux/weatherForecast/types";
 
@@ -67,7 +68,8 @@ const useIndex = () => {
           break;
       }
 
-      if (result) {
+      // NEED TO HANDLE ERRORS
+      if (result instanceof WeatherResponse) {
         dispatch(updateForecast(result));
         searchDispatch({ loading: false });
         return navigate("/forecast");

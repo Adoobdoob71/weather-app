@@ -1,12 +1,19 @@
-import { Flex, HStack, Switch, useColorMode } from "@chakra-ui/react";
+import {
+  Flex,
+  FlexProps,
+  HStack,
+  Switch,
+  useColorMode,
+} from "@chakra-ui/react";
 import { FC, ReactNode } from "react";
 import { SunIcon, MoonIcon } from "@chakra-ui/icons";
 
-interface Props {
-  left?: ReactNode;
+interface Props extends FlexProps {
+  leftElement?: ReactNode;
 }
 
-const Header: FC<Props> = ({ left }) => {
+const Header: FC<Props> = (props) => {
+  const { leftElement, ...otherProps } = props;
   const { toggleColorMode, colorMode } = useColorMode();
 
   return (
@@ -16,8 +23,9 @@ const Header: FC<Props> = ({ left }) => {
       paddingInline={8}
       justifyContent="space-between"
       alignItems="center"
+      {...otherProps}
     >
-      {left}
+      {leftElement}
       <HStack ms="auto">
         {colorMode === "dark" ? <MoonIcon /> : <SunIcon />}
         <Switch

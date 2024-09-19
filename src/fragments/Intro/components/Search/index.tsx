@@ -1,15 +1,4 @@
-import {
-  Box,
-  Flex,
-  IconButton,
-  Input,
-  Popover,
-  PopoverAnchor,
-  PopoverContent,
-  PopoverTrigger,
-  Select,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Flex, IconButton, Input, Select, Text } from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 import { FC } from "react";
 import { Icon } from "src/components/Icon";

@@ -1,12 +1,4 @@
-import {
-  Box,
-  Button,
-  Divider,
-  HStack,
-  Image,
-  Text,
-  useColorMode,
-} from "@chakra-ui/react";
+import { Box, Flex, HStack, Image, Text, useColorMode } from "@chakra-ui/react";
 import { FC } from "react";
 import { useAppSelector } from "src/redux/weatherForecast/types";
 import { WEATHER_ICON_URL } from "src/utils/constants";
@@ -32,12 +24,17 @@ const Left: FC = () => {
     >
       <Image
         src={`${WEATHER_ICON_URL}${todayData?.weather.icon}.png`}
-        boxSize={[200]}
+        boxSize={200}
       />
-      <HStack mt={8}>
-        <Text fontSize="6xl">{todayData?.temp}</Text>
-        <Text fontSize="4xl">℃</Text>
-      </HStack>
+      <Flex mt={8} alignItems="center">
+        <Text fontSize="6xl">{todayData?.max_temp.toFixed(0)}</Text>
+        <Text fontSize="2xl" color="GrayText" mt={5}>
+          /{todayData?.low_temp.toFixed(0)}
+        </Text>
+        <Text fontSize="2xl" ms={2}>
+          ℃
+        </Text>
+      </Flex>
       <Text mt={4}>{todayData?.weather.description}</Text>
       <HStack mt={8}>
         <Text>Today, </Text>
@@ -49,7 +46,7 @@ const Left: FC = () => {
           })}
         </Text>
       </HStack>
-      <Text mt="auto">
+      <Text mt="auto" fontWeight="bold">
         {weatherForecast.sevenDayForecast?.city_name},{" "}
         {weatherForecast.sevenDayForecast?.country_code}
       </Text>

@@ -1,4 +1,4 @@
-import { CurrentWeatherResponse, WeatherResponse } from "src/api/types";
+import { WeatherResponse } from "src/api/types";
 import { WEATHER_API } from "src/utils/constants";
 import { fetchWithCache } from "src/utils/functions";
 
@@ -31,23 +31,4 @@ const loadWeatherForecast = async (
   }
 };
 
-const loadBigCitiesWeather = async () => {
-  try {
-    const bigCities = ["Tel Aviv", "Palo alto", "Moscow", "Tokyo"];
-    const weathersData = await Promise.all(
-      bigCities.map(async (cityName) => {
-        const response = await fetch(
-          `${WEATHER_API}current?city=${cityName}&key=${process.env.REACT_APP_API_KEY}`,
-          { cache: "force-cache" }
-        );
-        const data = await response.json();
-        return response.ok ? (data as CurrentWeatherResponse) : null;
-      })
-    );
-    return weathersData;
-  } catch (error) {
-    console.error(error);
-    return [];
-  }
-};
-export { loadWeatherForecast, loadBigCitiesWeather };
+export { loadWeatherForecast };
