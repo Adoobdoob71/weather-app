@@ -27,9 +27,11 @@ const Left: FC = () => {
         boxSize={200}
       />
       <Flex mt={8} alignItems="center">
-        <Text fontSize="6xl">{todayData?.max_temp.toFixed(0)}</Text>
+        <Text fontSize="6xl">
+          {todayData?.max_temp ? todayData.max_temp.toFixed(0) : "--"}
+        </Text>
         <Text fontSize="2xl" color="GrayText" mt={5}>
-          /{todayData?.low_temp.toFixed(0)}
+          /{todayData?.low_temp ? todayData?.low_temp.toFixed(0) : "--"}
         </Text>
         <Text fontSize="2xl" ms={2}>
           ℃

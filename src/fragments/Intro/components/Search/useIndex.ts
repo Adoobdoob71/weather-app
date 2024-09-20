@@ -2,7 +2,6 @@ import { useToast } from "@chakra-ui/react";
 import { useReducer } from "react";
 import { useNavigate } from "react-router-dom";
 import { loadWeatherForecast } from "src/api/functions";
-import { WeatherResponse } from "src/api/types";
 import { updateForecast } from "src/redux/weatherForecast/slice";
 import { useAppDispatch } from "src/redux/weatherForecast/types";
 
@@ -57,7 +56,8 @@ const useIndex = () => {
       let result = null;
       switch (searchState.inputType) {
         case "city":
-          if (searchState.cityName === "") break;
+          if (searchState.cityName === "")
+            throw new Error("City's name is empty");
           result = await loadWeatherForecast(searchState.cityName);
           break;
         case "coordinates":
@@ -67,21 +67,21 @@ const useIndex = () => {
           });
           break;
       }
-
-      // NEED TO HANDLE ERRORS
-      if (result instanceof WeatherResponse) {
+      if (!(result instanceof Error) && result) {
+        console.log(result);
         dispatch(updateForecast(result));
         searchDispatch({ loading: false });
-        return navigate("/forecast");
+        return navigate("/forecast", { state: searchState });
       }
-      searchDispatch({ loading: false });
-      throw "Couldn't find forecast";
-    } catch (error) {
+      throw new Error("Couldn't find that");
+    } catch (error: any) {
       console.error(error);
+      searchDispatch({ loading: false });
       toast({
         status: "error",
         title: "Uh oh!",
-        description: JSON.stringify(error),
+        description: JSON.stringify(error.message),
+        duration: 2000,
       });
     }
   };

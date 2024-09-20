@@ -35,6 +35,7 @@ const Forecasts: FC = () => {
             <WeatherCard
               temp={item.temp}
               icon={item.weather.icon}
+              description={item.weather.description}
               valid_date={new Date(item.valid_date)}
               key={index}
             />

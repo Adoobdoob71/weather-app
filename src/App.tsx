@@ -9,12 +9,14 @@ import { useEffect } from "react";
 
 function App() {
   const toast = useToast();
+
   useEffect(() => {
     window.addEventListener("offline", () =>
       toast({
         status: "warning",
         title: "I'm lagging!",
         description: "Check your internet connection",
+        duration: 1500,
       })
     );
     window.addEventListener("online", () =>
@@ -22,8 +24,13 @@ function App() {
         status: "success",
         title: "And we're back!",
         description: "Internet connection is back",
+        duration: 1500,
       })
     );
+    return () => {
+      window.removeEventListener("offline", () => {});
+      window.removeEventListener("online", () => {});
+    };
   }, []);
 
   return (

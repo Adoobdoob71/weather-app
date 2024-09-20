@@ -13,14 +13,19 @@ const TodayWeather: FC<CardProps> = (props) => {
       <Flex justifyContent="space-between" alignItems="center" mt={2}>
         <VStack flex={1}>
           <Text fontSize="xx-large">
-            {weatherForecast.sevenDayForecast?.data[0].rh}%
+            {weatherForecast.sevenDayForecast?.data[0].rh
+              ? weatherForecast.sevenDayForecast?.data[0].rh
+              : "--"}
+            %
           </Text>
           <Text fontSize="md">Humidity</Text>
         </VStack>
         <VStack flex={1}>
           <Flex>
             <Text fontSize="xx-large">
-              {weatherForecast.sevenDayForecast?.data[0].wind_spd}
+              {weatherForecast.sevenDayForecast?.data[0].wind_spd
+                ? weatherForecast.sevenDayForecast?.data[0].wind_spd
+                : "--"}
             </Text>
             <Text fontSize="2xs" mt={6} ms={1}>
               km/h
@@ -31,7 +36,9 @@ const TodayWeather: FC<CardProps> = (props) => {
         <VStack flex={1}>
           <Flex>
             <Text fontSize="xx-large">
-              {weatherForecast.sevenDayForecast?.data[0].temp}
+              {weatherForecast.sevenDayForecast?.data[0].temp
+                ? weatherForecast.sevenDayForecast?.data[0].temp
+                : "--"}
             </Text>
             <Text fontSize="md">℃</Text>
           </Flex>

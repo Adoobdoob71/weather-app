@@ -2,14 +2,11 @@ import { ChevronLeftIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
-  Card,
   Flex,
   Tab,
   TabList,
   Tabs,
-  Text,
   useColorMode,
-  VStack,
 } from "@chakra-ui/react";
 import { FC, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -79,7 +76,7 @@ const Right: FC = () => {
               key={index}
               valid_date={new Date(item.valid_date)}
               me={2}
-              city_name={item.weather.description}
+              description={item.weather.description}
             />
           ))}
       </Box>

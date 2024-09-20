@@ -14,10 +14,15 @@ const Top: FC = () => {
       />
       <Flex mt={0} alignItems="center">
         <Text fontSize="6xl">
-          {weatherForecast.sevenDayForecast?.data[0].max_temp.toFixed(0)}
+          {weatherForecast.sevenDayForecast?.data[0].max_temp
+            ? weatherForecast.sevenDayForecast?.data[0].max_temp.toFixed(0)
+            : "--"}
         </Text>
         <Text fontSize="2xl" color="GrayText" mt={5} ms={2}>
-          /{weatherForecast.sevenDayForecast?.data[0].low_temp.toFixed(0)}
+          /
+          {weatherForecast.sevenDayForecast?.data[0].low_temp
+            ? weatherForecast.sevenDayForecast?.data[0].low_temp.toFixed(0)
+            : "--"}
         </Text>
         <Text fontSize="2xl" ms={2}>
           ℃
