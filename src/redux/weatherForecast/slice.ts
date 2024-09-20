@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { WeatherResponse } from "src/api/types";
 
 interface initialStateType {
@@ -21,7 +21,7 @@ export const weatherSlice = createSlice({
     loadingFalse: (state) => {
       state.loading = false;
     },
-    updateForecast: (state, action) => {
+    updateForecast: (state, action: PayloadAction<WeatherResponse>) => {
       state.sevenDayForecast = action.payload;
       state.loading = false;
     },
