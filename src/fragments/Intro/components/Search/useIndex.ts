@@ -6,15 +6,15 @@ import { updateForecast } from "src/redux/weatherForecast/slice";
 import { useAppDispatch } from "src/redux/weatherForecast/types";
 
 interface search {
-  cityName?: string;
-  coords?: { latitude?: number; longitude?: number };
-  inputType?: string;
-  loading?: boolean;
+  cityName: string;
+  coords: { latitude: number; longitude: number };
+  inputType: string;
+  loading: boolean;
 }
 
 const useIndex = () => {
   const [searchState, searchDispatch] = useReducer(
-    (prev: search, next: search) => {
+    (prev: search, next: Partial<search>) => {
       return { ...prev, ...next };
     },
     {
@@ -62,8 +62,8 @@ const useIndex = () => {
           break;
         case "coordinates":
           result = await loadWeatherForecast(undefined, {
-            latitude: searchState.coords?.latitude ?? 0,
-            longitude: searchState.coords?.longitude ?? 0,
+            latitude: searchState.coords.latitude,
+            longitude: searchState.coords.longitude,
           });
           break;
       }
