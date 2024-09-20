@@ -1,5 +1,5 @@
 import { useToast } from "@chakra-ui/react";
-import { useEffect, useReducer } from "react";
+import { useReducer } from "react";
 import { useNavigate } from "react-router-dom";
 import { loadWeatherForecast } from "src/api/functions";
 import { updateForecast } from "src/redux/weatherForecast/slice";
