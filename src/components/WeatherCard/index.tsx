@@ -22,8 +22,8 @@ const WeatherCard: FC<Props> = memo((props) => {
       <Flex justifyContent="space-between">
         <Image src={`${WEATHER_ICON_URL}${icon}.png`} boxSize={12} />
         <Flex flexDir="column" alignItems="center">
-          <Text fontSize="sm" fontWeight="600">
-            {temp ? temp : "--"} ℃
+          <Text fontSize="sm" fontWeight="600" noOfLines={1}>
+            {temp ? temp.toFixed(0) : "--"} ℃
           </Text>
           <Text
             fontSize={["xs", "xs", "xs", "xs"]}

@@ -8,6 +8,10 @@ const Top: FC = () => {
 
   return (
     <Flex flexDir="column" alignItems="center" mt={32}>
+      <Text fontSize="2xl" mb={0}>
+        {weatherForecast.sevenDayForecast?.city_name},{" "}
+        {weatherForecast.sevenDayForecast?.country_code}
+      </Text>
       <Image
         src={`${WEATHER_ICON_URL}${weatherForecast.sevenDayForecast?.data[0].weather.icon}.png`}
         boxSize={240}
