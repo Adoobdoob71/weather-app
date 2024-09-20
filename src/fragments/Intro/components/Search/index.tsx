@@ -72,14 +72,14 @@ const Search: FC = () => {
               colorScheme="blue"
               required
               type="number"
-              value={searchState.coords?.latitude}
+              value={searchState.coords.latitude}
               onChange={(event) =>
                 searchDispatch({
                   coords: {
                     latitude:
                       parseFloat(event.target.value) ||
-                      searchState.coords?.latitude,
-                    longitude: searchState.coords?.longitude,
+                      searchState.coords.latitude,
+                    longitude: searchState.coords.longitude,
                   },
                 })
               }
@@ -91,14 +91,14 @@ const Search: FC = () => {
               colorScheme="blue"
               required
               type="number"
-              value={searchState.coords?.longitude}
+              value={searchState.coords.longitude}
               onChange={(event) =>
                 searchDispatch({
                   coords: {
-                    latitude: searchState.coords?.latitude,
+                    latitude: searchState.coords.latitude,
                     longitude:
                       parseFloat(event.target.value) ||
-                      searchState.coords?.longitude,
+                      searchState.coords.longitude,
                   },
                 })
               }
