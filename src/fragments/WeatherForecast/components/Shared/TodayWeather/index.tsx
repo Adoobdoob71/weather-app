@@ -1,12 +1,17 @@
 import { Card, CardProps, Flex, Text, VStack } from "@chakra-ui/react";
-import { FC } from "react";
+import { FC, memo } from "react";
 import { useAppSelector } from "src/redux/weatherForecast/types";
 
-const TodayWeather: FC<CardProps> = (props) => {
+const TodayWeather: FC<CardProps> = memo((props) => {
   const weatherForecast = useAppSelector((state) => state.weatherForecast);
 
   return (
-    <Card w={["90%", "90%", "85%", "85%", "70%"]} paddingBlock={4} {...props}>
+    <Card
+      w={["90%", "90%", "85%", "85%", "70%"]}
+      colorScheme="yellow"
+      paddingBlock={4}
+      {...props}
+    >
       <Text textAlign="center" fontSize="xl">
         Today
       </Text>
@@ -47,6 +52,6 @@ const TodayWeather: FC<CardProps> = (props) => {
       </Flex>
     </Card>
   );
-};
+});
 
 export { TodayWeather };

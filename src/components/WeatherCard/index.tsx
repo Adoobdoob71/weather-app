@@ -37,12 +37,7 @@ const WeatherCard: FC<Props> = memo((props) => {
           </Text>
         </Flex>
       </Flex>
-      <Text
-        fontSize={["xs", "xs", "sm", "sm"]}
-        // color="GrayText"
-        fontWeight="600"
-        noOfLines={1}
-      >
+      <Text fontSize={["xs", "xs", "sm", "sm"]} fontWeight="600" noOfLines={1}>
         {description}
       </Text>
     </Card>

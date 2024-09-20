@@ -16,7 +16,7 @@ function App() {
         status: "warning",
         title: "I'm lagging!",
         description: "Check your internet connection",
-        duration: 1500,
+        duration: 2000,
       })
     );
     window.addEventListener("online", () =>
@@ -24,7 +24,7 @@ function App() {
         status: "success",
         title: "And we're back!",
         description: "Internet connection is back",
-        duration: 1500,
+        duration: 2000,
       })
     );
     return () => {

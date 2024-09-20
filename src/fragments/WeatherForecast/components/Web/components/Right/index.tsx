@@ -46,6 +46,7 @@ const Right: FC = () => {
       />
       <Tabs
         variant="soft-rounded"
+        alignSelf="center"
         colorScheme="blue"
         defaultIndex={forecastDays}
         onChange={(index) => setForecastDays(index)}
@@ -59,13 +60,13 @@ const Right: FC = () => {
       </Tabs>
       <Box
         display="grid"
-        gridTemplateColumns="repeat(4, 1fr)"
+        gridTemplateColumns="repeat(3, 1fr)"
         rowGap={4}
-        ps={8}
+        paddingInline={[16, 16, 24, 36, 52]}
         justifyItems="center"
         paddingBlock={1}
         alignItems="center"
-        mt={4}
+        mt={8}
       >
         {weatherForecast.sevenDayForecast?.data
           .slice(0, forecastDays ? 7 : 3)

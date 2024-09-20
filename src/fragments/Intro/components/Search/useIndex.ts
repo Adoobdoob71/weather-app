@@ -1,5 +1,5 @@
 import { useToast } from "@chakra-ui/react";
-import { useReducer } from "react";
+import { useEffect, useReducer } from "react";
 import { useNavigate } from "react-router-dom";
 import { loadWeatherForecast } from "src/api/functions";
 import { updateForecast } from "src/redux/weatherForecast/slice";
@@ -68,7 +68,6 @@ const useIndex = () => {
           break;
       }
       if (!(result instanceof Error) && result) {
-        console.log(result);
         dispatch(updateForecast(result));
         searchDispatch({ loading: false });
         return navigate("/forecast", { state: searchState });

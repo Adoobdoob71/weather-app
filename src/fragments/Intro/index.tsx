@@ -12,7 +12,7 @@ const Intro: FC = () => {
         flexDirection="column"
         h="100%"
         alignItems="center"
-        marginTop="20vh"
+        marginTop={["20vh", "20vh", "20vh", "15vh", "15vh"]}
       >
         <Text
           bgGradient="linear(to-r, blue.400, yellow.300)"

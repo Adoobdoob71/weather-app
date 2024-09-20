@@ -1,4 +1,12 @@
-import { Box, Flex, IconButton, Input, Select, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  FormControl,
+  IconButton,
+  Input,
+  Select,
+  Text,
+} from "@chakra-ui/react";
 import { SearchIcon } from "@chakra-ui/icons";
 import { FC } from "react";
 import { Icon } from "src/components/Icon";
@@ -12,10 +20,12 @@ const Search: FC = () => {
     <>
       <Box
         display="flex"
+        as="form"
+        id="searchForm"
         justifyContent="center"
         alignItems="center"
         w="100%"
-        mt={[6, 6, 6, 12]}
+        mt={[6, 6, 6, 8]}
       >
         {searchState.inputType === "coordinates" && (
           <IconButton
@@ -41,11 +51,12 @@ const Search: FC = () => {
             placeholder="Enter a city name..."
             variant="filled"
             colorScheme="blue"
+            required
             value={searchState.cityName}
             onChange={(event) =>
               searchDispatch({ cityName: event.target.value })
             }
-            w={["70%", "62.5%", "50%"]}
+            w={["70%", "60%", "45%", "45%", "40%"]}
           />
         ) : (
           <Flex
@@ -59,6 +70,7 @@ const Search: FC = () => {
               placeholder="Latitude"
               variant="filled"
               colorScheme="blue"
+              required
               type="number"
               value={searchState.coords?.latitude}
               onChange={(event) =>
@@ -77,6 +89,7 @@ const Search: FC = () => {
               placeholder="Longitude"
               variant="filled"
               colorScheme="blue"
+              required
               type="number"
               value={searchState.coords?.longitude}
               onChange={(event) =>
@@ -96,6 +109,7 @@ const Search: FC = () => {
           icon={<SearchIcon />}
           isLoading={searchState.loading}
           aria-label="Search place"
+          type="submit"
           onClick={getLocationForecast}
           colorScheme="yellow"
           fontSize={["sm", "md"]}
