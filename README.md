@@ -33,7 +33,7 @@ Start the server
 
 ## Environment Variables
 
-To run this project, you will need the `REACT_APP_API_KEY` for the weatherbit api. You can send me an email for that
+To run this project, you will need to create an `.env` file and put `REACT_APP_API_KEY` for the weatherbit api. You can send me an email for the api key
 
 
 
