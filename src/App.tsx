@@ -1,10 +1,10 @@
 import { Box, ChakraProvider, useToast } from "@chakra-ui/react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { theme } from "./utils/theme";
-import { Intro } from "./fragments/Intro";
+import { Intro } from "./screens/Intro";
 import { Provider } from "react-redux";
 import { store } from "./redux/weatherForecast/store";
-import { WeatherForecast } from "./fragments/WeatherForecast";
+import { WeatherForecast } from "./screens/WeatherForecast";
 import { useEffect } from "react";
 
 function App() {
