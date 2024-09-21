@@ -42,7 +42,7 @@ const TodayWeather: FC<CardProps> = memo((props) => {
           <Flex>
             <Text fontSize="xx-large">
               {weatherForecast.sevenDayForecast?.data[0].temp
-                ? weatherForecast.sevenDayForecast?.data[0].temp
+                ? weatherForecast.sevenDayForecast?.data[0].temp.toFixed(0)
                 : "--"}
             </Text>
             <Text fontSize="md">℃</Text>
