@@ -11,7 +11,7 @@ const loadWeatherForecast = async (
     if (cityName) {
       const cityNameSanitized = sanitizeInput(cityName);
       const data = await fetchWithCache(
-        `${WEATHER_API}forecast/daily?city=${cityNameSanitized}&key=${process.env.REACT_APP_API_KEY}`,
+        `${WEATHER_API}forecast/daily?city=${cityNameSanitized}&days=7&key=${process.env.REACT_APP_API_KEY}`,
         "city",
         cityNameSanitized
       );
@@ -19,7 +19,7 @@ const loadWeatherForecast = async (
     }
     if (coords) {
       const data = await fetchWithCache(
-        `${WEATHER_API}forecast/daily?lat=${coords.latitude}&lon=${coords.longitude}&key=${process.env.REACT_APP_API_KEY}`,
+        `${WEATHER_API}forecast/daily?lat=${coords.latitude}&lon=${coords.longitude}&days=7&key=${process.env.REACT_APP_API_KEY}`,
         "coordinates",
         undefined,
         coords
@@ -73,6 +73,9 @@ const fetchWithCache = async (
   }
 };
 
+// IMPORTANT!
+// I didn't have a way to find the city_id before sending a request for the 7 day forecast,
+// so I had to request the "current" endpoint, get the city_id from there and use that for the caching
 const retrieveKey = async (
   type: "city" | "coordinates",
   cityName?: string,
