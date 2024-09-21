@@ -1,5 +1,6 @@
 import { WeatherResponse } from "src/api/types";
 import { MAX_CACHE_AGE, WEATHER_API } from "src/utils/constants";
+import { sanitizeInput } from "src/utils/functions";
 import { Coordinates } from "src/utils/types";
 
 const loadWeatherForecast = async (
@@ -8,11 +9,11 @@ const loadWeatherForecast = async (
 ) => {
   try {
     if (cityName) {
-      const cityNameSlug = cityName.toLowerCase();
+      const cityNameSanitized = sanitizeInput(cityName);
       const data = await fetchWithCache(
-        `${WEATHER_API}forecast/daily?city=${cityNameSlug}&key=${process.env.REACT_APP_API_KEY}`,
+        `${WEATHER_API}forecast/daily?city=${cityNameSanitized}&key=${process.env.REACT_APP_API_KEY}`,
         "city",
-        cityNameSlug
+        cityNameSanitized
       );
       return (data as WeatherResponse) ?? data;
     }
@@ -39,7 +40,7 @@ interface CachedItem {
 const fetchWithCache = async (
   url: string,
   type: "city" | "coordinates",
-  cityNameSlug?: string,
+  cityName?: string,
   coords?: Coordinates
 ) => {
   try {
@@ -47,7 +48,7 @@ const fetchWithCache = async (
       latitude: parseFloat(coords?.latitude.toFixed(2) ?? ""),
       longitude: parseFloat(coords?.longitude.toFixed(2) ?? ""),
     };
-    const key = await retrieveKey(type, cityNameSlug, broadCoords);
+    const key = await retrieveKey(type, cityName, broadCoords);
     const cachedData = localStorage.getItem(key);
 
     if (!cachedData) {
@@ -74,14 +75,14 @@ const fetchWithCache = async (
 
 const retrieveKey = async (
   type: "city" | "coordinates",
-  cityNameSlug?: string,
+  cityName?: string,
   coords?: Coordinates
 ) => {
   try {
     let response = null;
     if (type === "city")
       response = await fetch(
-        `${WEATHER_API}current?city=${cityNameSlug}&key=${process.env.REACT_APP_API_KEY}`
+        `${WEATHER_API}current?city=${cityName}&key=${process.env.REACT_APP_API_KEY}`
       );
     else
       response = await fetch(

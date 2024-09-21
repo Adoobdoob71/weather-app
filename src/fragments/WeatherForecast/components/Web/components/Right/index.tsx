@@ -13,7 +13,7 @@ import { useNavigate } from "react-router-dom";
 import { Header } from "src/components/Header";
 import { WeatherCard } from "src/components/WeatherCard";
 import { useAppSelector } from "src/redux/weatherForecast/types";
-import { TodayWeather } from "../../../Shared/TodayWeather";
+import { TodayWeather } from "../../../../../../components/TodayWeather";
 
 const Right: FC = () => {
   const [forecastDays, setForecastDays] = useState(0);

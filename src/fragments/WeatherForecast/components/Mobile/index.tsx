@@ -4,7 +4,7 @@ import { FC } from "react";
 import { useNavigate } from "react-router-dom";
 import { Header } from "src/components/Header";
 import { Top } from "./Top";
-import { TodayWeather } from "../Shared/TodayWeather/index";
+import { TodayWeather } from "../../../../components/TodayWeather/index";
 import { Forecasts } from "./Forecasts";
 
 const WeatherForecastMobile: FC = () => {
